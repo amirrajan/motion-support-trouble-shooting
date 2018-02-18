@@ -109,12 +109,10 @@ module Motion; module Project
 
       puts "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
       puts "#{dependency}"
-      puts "\n\n"
-      [
-        "./app/lib/core_ext/object/to_query.rb",
-        "./app/app_delegate.rb"
-      ].each do |k|
-        puts "#{k}", "#{dependency["./app/lib/core_ext/object/to_query.rb"]}"
+      puts "\r\n\r\n"
+      dependency.keys.each do |k|
+        puts "#{k}", "#{dependency[k]}"
+        puts "\r\n\r\n"
       end
       puts "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
 
