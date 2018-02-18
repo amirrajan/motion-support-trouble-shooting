@@ -287,4 +287,58 @@ class Hash
   # def extract!(*keys)
   #   keys.each_with_object(self.class.new) { |key, result| result[key] = delete(key) if has_key?(key) }
   # end
+
+  # # Returns a deep copy of hash.
+  # #
+  # #   hash = { a: { b: 'b' } }
+  # #   dup  = hash.deep_dup
+  # #   dup[:a][:c] = 'c'
+  # #
+  # #   hash[:a][:c] #=> nil
+  # #   dup[:a][:c]  #=> "c"
+  # def deep_dup
+  #   each_with_object(dup) do |(key, value), hash|
+  #     hash[key.deep_dup] = value.deep_dup
+  #   end
+  # end
+
+  # # Ensure there are valid keys/values
+  # def as_json
+  #   Hash[map { |k,v| [k.to_s, (v.respond_to?(:as_json) ? v.as_json : v)] }]
+  # end
+
+  # # Serializes the hash object using Cocoa's NSJSONSerialization
+  # def to_json
+  #   # JSON keys must be strings, and any sub-objects also serialized
+  #   NSJSONSerialization.dataWithJSONObject(as_json, options: 0, error: nil).to_s
+  # end
+
+  # # Returns a string representation of the receiver suitable for use as a URL
+  # # query string:
+  # #
+  # #   {name: 'David', nationality: 'Danish'}.to_param
+  # #   # => "name=David&nationality=Danish"
+  # #
+  # # An optional namespace can be passed to enclose the param names:
+  # #
+  # #   {name: 'David', nationality: 'Danish'}.to_param('user')
+  # #   # => "user[name]=David&user[nationality]=Danish"
+  # #
+  # # The string pairs "key=value" that conform the query string
+  # # are sorted lexicographically in ascending order.
+  # #
+  # # This method is also aliased as +to_query+.
+  # def to_param(namespace = nil)
+  #   collect do |key, value|
+  #     value.to_query(namespace ? "#{namespace}[#{key}]" : key)
+  #   end.sort * '&'
+  # end
+
+  # alias_method :to_query, :to_param
+
+  # # A hash is blank if it's empty:
+  # #
+  # #   {}.blank?                # => true
+  # #   { key: 'value' }.blank?  # => false
+  # alias_method :blank?, :empty?
 end

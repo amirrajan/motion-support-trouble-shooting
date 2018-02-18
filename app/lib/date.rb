@@ -260,4 +260,12 @@ class Date
   # def xmlschema
   #   strftime DATE_FORMATS[:xmlschema]
   # end
+
+  # def as_json
+  #   strftime("%Y-%m-%d")
+  # end
+
+  # def to_json
+  #   as_json.to_json
+  # end
 end

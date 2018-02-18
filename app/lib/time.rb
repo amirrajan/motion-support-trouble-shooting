@@ -16,4 +16,12 @@ class Time
   #   min == other.min &&
   #   sec == other.sec
   # end
+
+  # def as_json
+  #   xmlschema
+  # end
+
+  # def to_json
+  #   as_json.to_json
+  # end
 end
