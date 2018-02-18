@@ -1,6 +1,19 @@
-# motion_require "../module/aliasing"
+class Range #:nodoc:
+  # # Optimize range sum to use arithmetic progression if a block is not given and
+  # # we have a range of numeric values.
+  # def sum(identity = 0)
+  #   if block_given? || !(first.is_a?(Integer) && last.is_a?(Integer))
+  #     super
+  #   else
+  #     actual_last = exclude_end? ? (last - 1) : last
+  #     if actual_last >= first
+  #       (actual_last - first + 1) * (actual_last + first) / 2
+  #     else
+  #       identity
+  #     end
+  #   end
+  # end
 
-class Range
   # # Extends the default Range#include? to support range comparisons.
   # #  (1..5).include?(1..5) # => true
   # #  (1..5).include?(2..3) # => true
@@ -20,4 +33,11 @@ class Range
   # end
 
   # alias_method_chain :include?, :range
+
+  # # Compare two ranges and see if they overlap each other
+  # #  (1..5).overlaps?(4..6) # => true
+  # #  (1..5).overlaps?(7..9) # => false
+  # def overlaps?(other)
+  #   cover?(other.first) || other.cover?(first)
+  # end
 end

@@ -50,11 +50,11 @@ module MotionSupport
   #   - save
   #   saved
   module Callbacks
-    extend Concern
+    # extend Concern
 
-    included do
-      extend MotionSupport::DescendantsTracker
-    end
+    # included do
+    #   extend MotionSupport::DescendantsTracker
+    # end
 
     # # Runs the callbacks for the given event.
     # #
