@@ -1,5 +1,5 @@
 module Enumerable
-  defined?(Object)
+  defined?(Module)
   # def reverse_each(&block)
   #   return to_enum(:reverse_each) unless block_given?
 

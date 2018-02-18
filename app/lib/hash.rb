@@ -1,5 +1,5 @@
 class Hash
-  defined?(Object)
+  defined?(Enumerable)
   # # Returns a new hash with keys deleted if they match a criteria
   # #   h1 = { x: { y: [ { z: 4, y: 1 }, 5, 6] }, a: { b: 2 }  }
   # #

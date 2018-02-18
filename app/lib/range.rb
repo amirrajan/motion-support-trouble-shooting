@@ -1,6 +1,5 @@
 class Range #:nodoc:
-  defined?(Object)
-
+  defined?(Enumerable)
   # # Optimize range sum to use arithmetic progression if a block is not given and
   # # we have a range of numeric values.
   # def sum(identity = 0)

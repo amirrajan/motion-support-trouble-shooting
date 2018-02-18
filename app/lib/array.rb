@@ -1,5 +1,6 @@
 class Array
   defined?(Object)
+  defined?(Enumerable)
   # def reverse_each
   #   return to_enum(:reverse_each) unless block_given?
 
