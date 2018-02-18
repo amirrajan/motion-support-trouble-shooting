@@ -1,4 +1,6 @@
 class Symbol
+  defined?(Object)
+
   # # Symbols are not duplicable:
   # #
   # #   :my_symbol.duplicable? # => false

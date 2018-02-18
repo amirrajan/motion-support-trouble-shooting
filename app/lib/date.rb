@@ -1,4 +1,5 @@
 class Date
+  defined?(Object)
   # def self.gregorian_leap?(year)
   #   if year % 400 == 0
   #     true

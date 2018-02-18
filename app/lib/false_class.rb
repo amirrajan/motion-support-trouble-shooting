@@ -1,5 +1,5 @@
-
 class FalseClass
+  defined?(Object)
   # # +false+ is blank:
   # #
   # #   false.blank? # => true

@@ -1,6 +1,7 @@
 # motion_require 'core_ext/hash/keys'
 
 module MotionSupport
+  defined?(Object)
   # Implements a hash where keys <tt>:foo</tt> and <tt>"foo"</tt> are considered
   # to be the same.
   #
@@ -40,6 +41,7 @@ module MotionSupport
   #
   # which may be handy.
   class HashWithIndifferentAccess < Hash
+    defined?(Object)
     # # Returns +true+ so that <tt>Array#extract_options!</tt> finds members of
     # # this class.
     # def extractable_options?

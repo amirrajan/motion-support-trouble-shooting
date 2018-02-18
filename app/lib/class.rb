@@ -1,4 +1,5 @@
 class Class
+  defined?(Object)
   # # Declare a class-level attribute whose value is inheritable by subclasses.
   # # Subclasses can change their own value and it will not impact parent class.
   # #

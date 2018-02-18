@@ -1,5 +1,9 @@
 module MotionSupport
+  defined?(Object)
+
   module NumberHelper
+    defined?(Object)
+
     extend self
 
     # # Formats a +number+ into a US phone number (e.g., (555)

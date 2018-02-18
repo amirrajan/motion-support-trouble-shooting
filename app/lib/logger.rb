@@ -1,14 +1,6 @@
-module Kernel
-  # def log(*args)
-  #   MotionSupport.logger.log(*args)
-  # end
-
-  # def l(*args)
-  #   MotionSupport.logger.log(args.map { |a| a.inspect })
-  # end
-end
-
 module MotionSupport
+  defined?(Object)
+
   class NullLogger
     # def log(*args)
     # end

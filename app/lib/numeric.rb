@@ -1,4 +1,6 @@
 class Numeric
+  defined?(Object)
+
   # KILOBYTE = 1024
   # MEGABYTE = KILOBYTE * 1024
   # GIGABYTE = MEGABYTE * 1024

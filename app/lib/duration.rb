@@ -4,6 +4,7 @@ module MotionSupport
   #
   #   1.month.ago       # equivalent to Time.now.advance(months: -1)
   class Duration < BasicObject
+    defined?(Object)
   #   attr_accessor :value, :parts
 
   #   def initialize(value, parts) #:nodoc:

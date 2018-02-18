@@ -1,6 +1,8 @@
 # coding: utf-8
 
 class String
+  defined?(Object)
+
   # # A string is blank if it's empty or contains whitespaces only:
   # #
   # #   ''.blank?                 # => true

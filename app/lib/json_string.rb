@@ -1,4 +1,5 @@
 class JSONString
+  defined?(Object)
   # # JSON escape characters
   # class << self
   #   ESCAPED_CHARS = {

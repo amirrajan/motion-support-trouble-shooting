@@ -1,6 +1,10 @@
 # coding: utf-8
 module MotionSupport
+  defined?(Object)
+
   module Inflector
+    defined?(Object)
+
     extend self
 
     # A singleton instance of this class is yielded by Inflector.inflections,
@@ -20,6 +24,8 @@ module MotionSupport
     # singularization rules that is runs. This guarantees that your rules run
     # before any of the rules that may already have been loaded.
     class Inflections
+      defined?(Object)
+
       # def self.instance
       #   @__instance__ ||= new
       # end

@@ -1,5 +1,7 @@
 
 class TrueClass
+  defined?(Object)
+
   # # +true+ is not blank:
   # #
   # #   true.blank? # => false

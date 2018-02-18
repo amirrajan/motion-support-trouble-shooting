@@ -1,4 +1,6 @@
 class Time
+  defined?(Object)
+
   # def to_date
   #   Date.new(year, month, day)
   # end

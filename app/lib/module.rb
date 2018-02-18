@@ -1,4 +1,6 @@
 class Module
+  defined?(Object)
+
   # # Encapsulates the common pattern of:
   # #
   # #   alias_method :foo_without_feature, :foo

@@ -1,4 +1,5 @@
 class Integer
+  defined?(Object)
   # # Ordinalize turns a number into an ordinal string used to denote the
   # # position in an ordered sequence such as 1st, 2nd, 3rd, 4th.
   # #

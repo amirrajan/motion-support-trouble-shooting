@@ -1,4 +1,5 @@
 class NilClass
+  defined?(Object)
   # # +nil+ is blank:
   # #
   # #   nil.blank? # => true
