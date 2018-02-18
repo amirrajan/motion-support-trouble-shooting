@@ -121,17 +121,6 @@ end
 # worry about what base types of objects they are allowed to return
 # or having to remember to call #as_json recursively.
 
-class Array
-  # def as_json
-  #   map { |v| (v.respond_to?(:as_json) ? v.as_json : v) }
-  # end
-
-  # # Calls <tt>as_json</tt> on all its elements and converts to a string.
-  # def to_json
-  #   NSJSONSerialization.dataWithJSONObject(as_json, options: 0, error: nil).to_s
-  # end
-end
-
 class Hash
   # # Ensure there are valid keys/values
   # def as_json

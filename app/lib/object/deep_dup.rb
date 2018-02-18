@@ -13,20 +13,6 @@ class Object
   # end
 end
 
-class Array
-  # # Returns a deep copy of array.
-  # #
-  # #   array = [1, [2, 3]]
-  # #   dup   = array.deep_dup
-  # #   dup[1][2] = 4
-  # #
-  # #   array[1][2] #=> nil
-  # #   dup[1][2]   #=> 4
-  # def deep_dup
-  #   map { |it| it.deep_dup }
-  # end
-end
-
 class Hash
   # # Returns a deep copy of hash.
   # #

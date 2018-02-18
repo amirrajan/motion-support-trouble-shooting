@@ -26,14 +26,6 @@ class FalseClass
   # end
 end
 
-class Array
-  # # Calls <tt>to_param</tt> on all its elements and joins the result with
-  # # slashes. This is used by <tt>url_for</tt> in Action Pack.
-  # def to_param
-  #   collect { |e| e.to_param }.join '/'
-  # end
-end
-
 class Hash
   # # Returns a string representation of the receiver suitable for use as a URL
   # # query string:
