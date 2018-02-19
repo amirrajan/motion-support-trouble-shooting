@@ -1,5 +1,5 @@
 class Time
-  # defined?(Object)
+  defined?(Object)
 
   def to_date
     Date.new(year, month, day)
@@ -31,8 +31,6 @@ class Time
   def acts_like_time?
     true
   end
-
-#   include DateAndTime::Calculations
 
   COMMON_YEAR_DAYS_IN_MONTH = [nil, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
 

@@ -1,5 +1,5 @@
 class Date
-  # defined?(Object)
+  defined?(Object)
 
   def self.gregorian_leap?(year)
     if year % 400 == 0
@@ -85,8 +85,6 @@ class Date
   def acts_like_date?
     true
   end
-
-#   include DateAndTime::Calculations
 
   class << self
     attr_accessor :beginning_of_week_default

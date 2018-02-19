@@ -1,7 +1,7 @@
 module DateAndTime
   module Calculations
-    # defined?(Date) # Ensure that `Date` is compiled before this class.
-    # defined?(Time) # Ensure that `Time` is compiled before this class.
+    defined?(Date) # Ensure that `Date` is compiled before this class.
+    defined?(Time) # Ensure that `Time` is compiled before this class.
 
     DAYS_INTO_WEEK = {
       :monday    => 0,
@@ -232,10 +232,10 @@ module DateAndTime
   end
 end
 
-# class Date
-#   include DateAndTime::Calculations
-# end
+class Date
+  include DateAndTime::Calculations
+end
 
-# class Time
-#   include DateAndTime::Calculations
-# end
+class Time
+  include DateAndTime::Calculations
+end
