@@ -2,6 +2,7 @@
 module MotionSupport
   module Inflector
     defined?(Object)
+    defined?(Array)
 
     extend self
 
@@ -195,13 +196,13 @@ module MotionSupport
     #   MotionSupport::Inflector.inflections do |inflect|
     #     inflect.uncountable 'rails'
     #   end
-    # def inflections
-    #   if block_given?
-    #     yield Inflections.instance
-    #   else
-    #     Inflections.instance
-    #   end
-    # end
+    def inflections
+      if block_given?
+        yield Inflections.instance
+      else
+        Inflections.instance
+      end
+    end
 
     # Returns the plural form of the word in the string.
     #

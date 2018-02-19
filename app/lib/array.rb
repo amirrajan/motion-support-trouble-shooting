@@ -24,12 +24,12 @@ class Array
 
   # # If any item in the array has the value == `key` true, otherwise false
   # # Of good use when writing specs.
-  # def has_hash_value?(key)
-  #   self.each do |entity|
-  #     entity.each_pair{|hash_key, value| return true if value == key}
-  #   end
-  #   return false
-  # end
+  def has_hash_value?(key)
+    self.each do |entity|
+      entity.each_pair{|hash_key, value| return true if value == key}
+    end
+    return false
+  end
 
   # # Returns the tail of the array from +position+.
   # #
@@ -37,9 +37,9 @@ class Array
   # #   %w( a b c d ).from(2)  # => ["c", "d"]
   # #   %w( a b c d ).from(10) # => []
   # #   %w().from(0)           # => []
-  # def from(position)
-  #   self[position, length] || []
-  # end
+  def from(position)
+    self[position, length] || []
+  end
 
   # # Returns the beginning of the array up to +position+.
   # #
@@ -47,16 +47,16 @@ class Array
   # #   %w( a b c d ).to(2)  # => ["a", "b", "c"]
   # #   %w( a b c d ).to(10) # => ["a", "b", "c", "d"]
   # #   %w().to(0)           # => []
-  # def to(position)
-  #   first position + 1
-  # end
+  def to(position)
+    first position + 1
+  end
 
   # # Equal to <tt>self[1]</tt>.
   # #
   # #   %w( a b c d e ).second # => "b"
-  # def second
-  #   self[1]
-  # end
+  def second
+    self[1]
+  end
 
   # # Converts the array to a comma-separated sentence where the last element is
   # # joined by the connector word.
@@ -87,71 +87,71 @@ class Array
   # #
   # #   ['one', 'two', 'three'].to_sentence(words_connector: ' or ', last_word_connector: ' or at least ')
   # #   # => "one or two or at least three"
-  # def to_sentence(options = {})
-  #   options.assert_valid_keys(:words_connector, :two_words_connector, :last_word_connector)
+  def to_sentence(options = {})
+    options.assert_valid_keys(:words_connector, :two_words_connector, :last_word_connector)
 
-  #   default_connectors = {
-  #     :words_connector     => ', ',
-  #     :two_words_connector => ' and ',
-  #     :last_word_connector => ', and '
-  #   }
-  #   options = default_connectors.merge!(options)
+    default_connectors = {
+      :words_connector     => ', ',
+      :two_words_connector => ' and ',
+      :last_word_connector => ', and '
+    }
+    options = default_connectors.merge!(options)
 
-  #   case length
-  #   when 0
-  #     ''
-  #   when 1
-  #     self[0].to_s.dup
-  #   when 2
-  #     "#{self[0]}#{options[:two_words_connector]}#{self[1]}"
-  #   else
-  #     "#{self[0...-1].join(options[:words_connector])}#{options[:last_word_connector]}#{self[-1]}"
-  #   end
-  # end
+    case length
+    when 0
+      ''
+    when 1
+      self[0].to_s.dup
+    when 2
+      "#{self[0]}#{options[:two_words_connector]}#{self[1]}"
+    else
+      "#{self[0...-1].join(options[:words_connector])}#{options[:last_word_connector]}#{self[-1]}"
+    end
+  end
 
-  # # Converts a collection of elements into a formatted string by calling
-  # # <tt>to_s</tt> on all elements and joining them. Having this model:
-  # #
-  # #   class Blog < ActiveRecord::Base
-  # #     def to_s
-  # #       title
-  # #     end
-  # #   end
-  # #
-  # #   Blog.all.map(&:title) #=> ["First Post", "Second Post", "Third post"]
-  # #
-  # # <tt>to_formatted_s</tt> shows us:
-  # #
-  # #   Blog.all.to_formatted_s # => "First PostSecond PostThird Post"
-  # #
-  # # Adding in the <tt>:db</tt> argument as the format yields a comma separated
-  # # id list:
-  # #
-  # #   Blog.all.to_formatted_s(:db) # => "1,2,3"
-  # def to_formatted_s(format = :default)
-  #   case format
-  #   when :db
-  #     if empty?
-  #       'null'
-  #     else
-  #       collect { |element| element.id }.join(',')
+  # Converts a collection of elements into a formatted string by calling
+  # <tt>to_s</tt> on all elements and joining them. Having this model:
+  #
+  #   class Blog < ActiveRecord::Base
+  #     def to_s
+  #       title
   #     end
-  #   else
-  #     to_default_s
   #   end
-  # end
-  # alias_method :to_default_s, :to_s
-  # alias_method :to_s, :to_formatted_s
+  #
+  #   Blog.all.map(&:title) #=> ["First Post", "Second Post", "Third post"]
+  #
+  # <tt>to_formatted_s</tt> shows us:
+  #
+  #   Blog.all.to_formatted_s # => "First PostSecond PostThird Post"
+  #
+  # Adding in the <tt>:db</tt> argument as the format yields a comma separated
+  # id list:
+  #
+  #   Blog.all.to_formatted_s(:db) # => "1,2,3"
+  def to_formatted_s(format = :default)
+    case format
+    when :db
+      if empty?
+        'null'
+      else
+        collect { |element| element.id }.join(',')
+      end
+    else
+      to_default_s
+    end
+  end
+  alias_method :to_default_s, :to_s
+  alias_method :to_s, :to_formatted_s
 
   # # Extracts options from a set of arguments. Removes and returns the last
   # # element in the array if it's a hash, otherwise returns a blank hash.
-  # def extract_options!
-  #   if last.is_a?(Hash)
-  #     pop
-  #   else
-  #     {}
-  #   end
-  # end
+  def extract_options!
+    if last.is_a?(Hash)
+      pop
+    else
+      {}
+    end
+  end
 
   # # Splits or iterates over the array in groups of size +number+,
   # # padding any remaining slots with +fill_with+ unless it is +false+.
@@ -171,25 +171,25 @@ class Array
   # #   ["1", "2"]
   # #   ["3", "4"]
   # #   ["5"]
-  # def in_groups_of(number, fill_with = nil)
-  #   if fill_with == false
-  #     collection = self
-  #   else
-  #     # size % number gives how many extra we have;
-  #     # subtracting from number gives how many to add;
-  #     # modulo number ensures we don't add group of just fill.
-  #     padding = (number - size % number) % number
-  #     collection = dup.concat([fill_with] * padding)
-  #   end
+  def in_groups_of(number, fill_with = nil)
+    if fill_with == false
+      collection = self
+    else
+      # size % number gives how many extra we have;
+      # subtracting from number gives how many to add;
+      # modulo number ensures we don't add group of just fill.
+      padding = (number - size % number) % number
+      collection = dup.concat([fill_with] * padding)
+    end
 
-  #   if block_given?
-  #     collection.each_slice(number) { |slice| yield(slice) }
-  #   else
-  #     groups = []
-  #     collection.each_slice(number) { |group| groups << group }
-  #     groups
-  #   end
-  # end
+    if block_given?
+      collection.each_slice(number) { |slice| yield(slice) }
+    else
+      groups = []
+      collection.each_slice(number) { |group| groups << group }
+      groups
+    end
+  end
 
   # # Splits or iterates over the array in +number+ of groups, padding any
   # # remaining slots with +fill_with+ unless it is +false+.
@@ -208,54 +208,54 @@ class Array
   # #   ["1", "2", "3"]
   # #   ["4", "5"]
   # #   ["6", "7"]
-  # def in_groups(number, fill_with = nil)
-  #   # size / number gives minor group size;
-  #   # size % number gives how many objects need extra accommodation;
-  #   # each group hold either division or division + 1 items.
-  #   division = size.div number
-  #   modulo = size % number
+  def in_groups(number, fill_with = nil)
+    # size / number gives minor group size;
+    # size % number gives how many objects need extra accommodation;
+    # each group hold either division or division + 1 items.
+    division = size.div number
+    modulo = size % number
 
-  #   # create a new array avoiding dup
-  #   groups = []
-  #   start = 0
+    # create a new array avoiding dup
+    groups = []
+    start = 0
 
-  #   number.times do |index|
-  #     length = division + (modulo > 0 && modulo > index ? 1 : 0)
-  #     groups << last_group = slice(start, length)
-  #     last_group << fill_with if fill_with != false &&
-  #       modulo > 0 && length == division
-  #     start += length
-  #   end
+    number.times do |index|
+      length = division + (modulo > 0 && modulo > index ? 1 : 0)
+      groups << last_group = slice(start, length)
+      last_group << fill_with if fill_with != false &&
+        modulo > 0 && length == division
+      start += length
+    end
 
-  #   if block_given?
-  #     groups.each { |g| yield(g) }
-  #   else
-  #     groups
-  #   end
-  # end
+    if block_given?
+      groups.each { |g| yield(g) }
+    else
+      groups
+    end
+  end
 
   # # Divides the array into one or more subarrays based on a delimiting +value+
   # # or the result of an optional block.
   # #
   # #   [1, 2, 3, 4, 5].split(3)              # => [[1, 2], [4, 5]]
   # #   (1..10).to_a.split { |i| i % 3 == 0 } # => [[1, 2], [4, 5], [7, 8], [10]]
-  # def split(value = nil, &block)
-  #   inject([[]]) do |results, element|
-  #     if block && block.call(element) || value == element
-  #       results << []
-  #     else
-  #       results.last << element
-  #     end
+  def split(value = nil, &block)
+    inject([[]]) do |results, element|
+      if block && block.call(element) || value == element
+        results << []
+      else
+        results.last << element
+      end
 
-  #     results
-  #   end
-  # end
+      results
+    end
+  end
 
   # # The human way of thinking about adding stuff to the end of a list is with append
-  # alias_method :append,  :<<
+  alias_method :append,  :<<
 
   # # The human way of thinking about adding stuff to the beginning of a list is with prepend
-  # alias_method :prepend, :unshift
+  alias_method :prepend, :unshift
 
   # # Wraps its argument in an array unless it is already an array (or array-like).
   # #
@@ -291,15 +291,15 @@ class Array
   # #
   # # Thus, in this case the behavior may be different for +nil+, and the differences with
   # # <tt>Kernel#Array</tt> explained above apply to the rest of <tt>object</tt>s.
-  # def self.wrap(object)
-  #   if object.nil?
-  #     []
-  #   elsif object.respond_to?(:to_ary)
-  #     object.to_ary || [object]
-  #   else
-  #     [object]
-  #   end
-  # end
+  def self.wrap(object)
+    if object.nil?
+      []
+    elsif object.respond_to?(:to_ary)
+      object.to_ary || [object]
+    else
+      [object]
+    end
+  end
 
   # # An array is blank if it's empty:
   # #
