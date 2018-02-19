@@ -64,59 +64,58 @@ class Class
   # #   object.setting = false  # => NoMethodError
   # #
   # # To opt out of both instance methods, pass <tt>instance_accessor: false</tt>.
-  # def class_attribute(*attrs)
-  #   options = attrs.extract_options!
-  #   # double assignment is used to avoid "assigned but unused variable" warning
-  #   instance_reader = instance_reader = options.fetch(:instance_accessor, true) && options.fetch(:instance_reader, true)
-  #   instance_writer = options.fetch(:instance_accessor, true) && options.fetch(:instance_writer, true)
+  def class_attribute(*attrs)
+    options = attrs.extract_options!
+    # double assignment is used to avoid "assigned but unused variable" warning
+    instance_reader = instance_reader = options.fetch(:instance_accessor, true) && options.fetch(:instance_reader, true)
+    instance_writer = options.fetch(:instance_accessor, true) && options.fetch(:instance_writer, true)
 
-  #   attrs.each do |name|
-  #     define_singleton_method(name) { nil }
-  #     define_singleton_method("#{name}?") { !!public_send(name) }
+    attrs.each do |name|
+      define_singleton_method(name) { nil }
+      define_singleton_method("#{name}?") { !!public_send(name) }
 
-  #     ivar = "@#{name}"
+      ivar = "@#{name}"
 
-  #     define_singleton_method("#{name}=") do |val|
-  #       singleton_class.class_eval do
-  #         remove_possible_method(name)
-  #         define_method(name) { val }
-  #       end
+      define_singleton_method("#{name}=") do |val|
+        singleton_class.class_eval do
+          remove_possible_method(name)
+          define_method(name) { val }
+        end
 
-  #       if singleton_class?
-  #         class_eval do
-  #           remove_possible_method(name)
-  #           define_method(name) do
-  #             if instance_variable_defined? ivar
-  #               instance_variable_get ivar
-  #             else
-  #               singleton_class.send name
-  #             end
-  #           end
-  #         end
-  #       end
-  #       val
-  #     end
+        if singleton_class?
+          class_eval do
+            remove_possible_method(name)
+            define_method(name) do
+              if instance_variable_defined? ivar
+                instance_variable_get ivar
+              else
+                singleton_class.send name
+              end
+            end
+          end
+        end
+        val
+      end
 
-  #     if instance_reader
-  #       remove_possible_method name
-  #       define_method(name) do
-  #         if instance_variable_defined?(ivar)
-  #           instance_variable_get ivar
-  #         else
-  #           self.class.public_send name
-  #         end
-  #       end
-  #       define_method("#{name}?") { !!public_send(name) }
-  #     end
+      if instance_reader
+        remove_possible_method name
+        define_method(name) do
+          if instance_variable_defined?(ivar)
+            instance_variable_get ivar
+          else
+            self.class.public_send name
+          end
+        end
+        define_method("#{name}?") { !!public_send(name) }
+      end
 
-  #     attr_writer name if instance_writer
-  #   end
-  # end
+      attr_writer name if instance_writer
+    end
+  end
 
-  # private
-  #   def singleton_class?
-  #     ancestors.first != self
-  #   end
+  def singleton_class?
+    ancestors.first != self
+  end
 
   # # Defines a class attribute if it's not defined and creates a reader method that
   # # returns the attribute value.
@@ -144,29 +143,29 @@ class Class
   # #   end
   # #
   # #   Person.new.hair_colors # => NoMethodError
-  # def cattr_reader(*syms)
-  #   options = syms.extract_options!
-  #   syms.each do |sym|
-  #     raise NameError.new('invalid attribute name') unless sym =~ /^[_A-Za-z]\w*$/
-  #     class_exec do
-  #       unless class_variable_defined?("@@#{sym}")
-  #         class_variable_set("@@#{sym}", nil)
-  #       end
+  def cattr_reader(*syms)
+    options = syms.extract_options!
+    syms.each do |sym|
+      raise NameError.new('invalid attribute name') unless sym =~ /^[_A-Za-z]\w*$/
+      class_exec do
+        unless class_variable_defined?("@@#{sym}")
+          class_variable_set("@@#{sym}", nil)
+        end
 
-  #       define_singleton_method sym do
-  #         class_variable_get("@@#{sym}")
-  #       end
-  #     end
+        define_singleton_method sym do
+          class_variable_get("@@#{sym}")
+        end
+      end
 
-  #     unless options[:instance_reader] == false || options[:instance_accessor] == false
-  #       class_exec do
-  #         define_method sym do
-  #           self.class.class_variable_get("@@#{sym}")
-  #         end
-  #       end
-  #     end
-  #   end
-  # end
+      unless options[:instance_reader] == false || options[:instance_accessor] == false
+        class_exec do
+          define_method sym do
+            self.class.class_variable_get("@@#{sym}")
+          end
+        end
+      end
+    end
+  end
 
   # # Defines a class attribute if it's not defined and creates a writer method to allow
   # # assignment to the attribute.
@@ -205,30 +204,30 @@ class Class
   # #   end
   # #
   # #   Person.class_variable_get("@@hair_colors") # => [:brown, :black, :blonde, :red]
-  # def cattr_writer(*syms)
-  #   options = syms.extract_options!
-  #   syms.each do |sym|
-  #     raise NameError.new('invalid attribute name') unless sym =~ /^[_A-Za-z]\w*$/
-  #     class_exec do
-  #       unless class_variable_defined?("@@#{sym}")
-  #         class_variable_set("@@#{sym}", nil)
-  #       end
+  def cattr_writer(*syms)
+    options = syms.extract_options!
+    syms.each do |sym|
+      raise NameError.new('invalid attribute name') unless sym =~ /^[_A-Za-z]\w*$/
+      class_exec do
+        unless class_variable_defined?("@@#{sym}")
+          class_variable_set("@@#{sym}", nil)
+        end
 
-  #       define_singleton_method "#{sym}=" do |obj|
-  #         class_variable_set("@@#{sym}", obj)
-  #       end
-  #     end
+        define_singleton_method "#{sym}=" do |obj|
+          class_variable_set("@@#{sym}", obj)
+        end
+      end
 
-  #     unless options[:instance_writer] == false || options[:instance_accessor] == false
-  #       class_exec do
-  #         define_method "#{sym}=" do |obj|
-  #           self.class.class_variable_set("@@#{sym}", obj)
-  #         end
-  #       end
-  #     end
-  #     send("#{sym}=", yield) if block_given?
-  #   end
-  # end
+      unless options[:instance_writer] == false || options[:instance_accessor] == false
+        class_exec do
+          define_method "#{sym}=" do |obj|
+            self.class.class_variable_set("@@#{sym}", obj)
+          end
+        end
+      end
+      send("#{sym}=", yield) if block_given?
+    end
+  end
 
   # # Defines both class and instance accessors for class attributes.
   # #
@@ -278,8 +277,8 @@ class Class
   # #   end
   # #
   # #   Person.class_variable_get("@@hair_colors") #=> [:brown, :black, :blonde, :red]
-  # def cattr_accessor(*syms, &blk)
-  #   cattr_reader(*syms)
-  #   cattr_writer(*syms, &blk)
-  # end
+  def cattr_accessor(*syms, &blk)
+    cattr_reader(*syms)
+    cattr_writer(*syms, &blk)
+  end
 end
